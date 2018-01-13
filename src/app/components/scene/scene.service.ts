@@ -1,5 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AmbientLight, Color, DirectionalLight, Fog, Light, PerspectiveCamera, Scene } from 'three';
+import {
+  AmbientLight,
+  Color,
+  DirectionalLight,
+  Fog,
+  Light,
+  PerspectiveCamera,
+  Scene,
+  OrbitControls as ThreeOrbitControls,
+} from 'three';
 import OrbitControls from 'orbit-controls-es6';
 
 @Injectable()
@@ -13,7 +22,7 @@ export class SceneService {
       farClippingPane,
     );
     camera.position.x = 1000;
-    camera.position.y = 50;
+    camera.position.y = 500;
     camera.position.z = 1500;
     camera.zoom = 1;
     return camera;
@@ -36,11 +45,11 @@ export class SceneService {
     return scene;
   }
 
-  createControls(camera): OrbitControls {
+  createControls(camera): ThreeOrbitControls {
     const controls = new OrbitControls(camera);
     controls.rotateSpeed = 1.0;
     controls.zoomSpeed = 1.0;
-    controls.maxPolarAngle = Math.PI * 0.5;
+    controls.maxPolarAngle = Math.PI / 2 - Math.PI / 10;
     controls.minDistance = 1000;
     controls.maxDistance = 5000;
     return controls;

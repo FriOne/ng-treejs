@@ -5,11 +5,11 @@ import { SceneComponent } from '../scene/scene.component';
 
 @Component({
   selector: 'app-ground',
-  template: ''
+  template: '',
 })
 export class GroundComponent implements OnInit, OnDestroy {
-  @Input() texture;
-  @Input() y;
+  @Input() texture: string;
+  @Input() y: number;
   private mesh: Mesh;
 
   constructor(
