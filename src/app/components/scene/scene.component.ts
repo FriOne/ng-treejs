@@ -75,7 +75,7 @@ export class SceneComponent implements AfterViewInit, OnInit {
       antialias: true,
     });
     this.renderer.setPixelRatio(devicePixelRatio);
-    this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
+    this.renderer.setSize(this.host.clientWidth, this.host.clientHeight);
 
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = PCFSoftShadowMap;
