@@ -4,7 +4,9 @@ import {
   Object3D,
   PCFSoftShadowMap,
   PerspectiveCamera,
+  Raycaster,
   Scene,
+  Vector2,
   WebGLRenderer
 } from 'three';
 
@@ -30,8 +32,9 @@ export class SceneComponent implements AfterViewInit, OnInit {
   @Input() nearClippingPane = 1;
   @Input() farClippingPane = 10000;
 
-  scene: Scene;
-
+  private mouse: Vector2;
+  private scene: Scene;
+  private raycaster: Raycaster;
   private renderer: WebGLRenderer;
   private camera: PerspectiveCamera;
   private host: HTMLCanvasElement;
@@ -108,6 +111,9 @@ export class SceneComponent implements AfterViewInit, OnInit {
 
     const lights = this.sceneService.createLight();
     this.scene.add(...lights);
+
+    this.mouse = new Vector2();
+    this.raycaster = new Raycaster();
   }
 
   private getAspectRatio() {
@@ -123,5 +129,17 @@ export class SceneComponent implements AfterViewInit, OnInit {
     );
     this.camera.aspect = this.getAspectRatio();
     this.camera.updateProjectionMatrix();
+  }
+
+  @HostListener('window:mousemove', ['$event'])
+  private onMouseMove(event: MouseEvent) {
+    this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    this.raycaster.setFromCamera(this.mouse, this.camera);
+    const intersects = this.raycaster.intersectObjects(this.scene.children);
+    for (const object of intersects) {
+      console.log('object', object);
+    }
   }
 }
