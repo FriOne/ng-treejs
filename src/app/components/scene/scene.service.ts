@@ -15,7 +15,7 @@ export class SceneService {
     camera.position.x = 1000;
     camera.position.y = 50;
     camera.position.z = 1500;
-    camera.zoom = 0;
+    camera.zoom = 1;
     return camera;
   }
 
