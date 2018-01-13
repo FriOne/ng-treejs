@@ -86,7 +86,7 @@ export class SceneComponent implements AfterViewInit, OnInit {
   }
 
   render() {
-    this.renderer.render(this.scene, this.camera);
+    this.sceneService.requestAnimationFrame(() => this.renderer.render(this.scene, this.camera));
   }
 
   private initScene() {
@@ -123,6 +123,5 @@ export class SceneComponent implements AfterViewInit, OnInit {
     );
     this.camera.aspect = this.getAspectRatio();
     this.camera.updateProjectionMatrix();
-    this.render();
   }
 }

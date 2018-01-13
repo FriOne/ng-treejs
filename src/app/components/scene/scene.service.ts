@@ -19,6 +19,16 @@ export class SceneService {
     return camera;
   }
 
+  requestAnimationFrame(callback) {
+    const requestAnimationFrame = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame
+    ;
+    requestAnimationFrame(callback);
+  }
+
   createScene(): Scene {
     const scene = new Scene();
     scene.background = new Color(0xcce0ff);
