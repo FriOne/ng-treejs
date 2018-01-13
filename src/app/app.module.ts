@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ObjectLoader, TextureLoader } from 'three';
+import { TextureLoader } from 'three';
+import OBJLoader from 'three-react-obj-loader';
 
 import { AppComponent } from './app.component';
 import { SceneComponent } from './components/scene/scene.component';
@@ -19,7 +20,7 @@ import { TowerComponent } from './components/tower/tower.component';
   ],
   providers: [
     {provide: TextureLoader, useFactory: () => new TextureLoader()},
-    {provide: ObjectLoader, useFactory: () => new ObjectLoader()},
+    {provide: OBJLoader, useFactory: () => new OBJLoader()},
   ],
   bootstrap: [AppComponent]
 })

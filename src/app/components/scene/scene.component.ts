@@ -129,6 +129,7 @@ export class SceneComponent implements AfterViewInit, OnInit {
     );
     this.camera.aspect = this.getAspectRatio();
     this.camera.updateProjectionMatrix();
+    this.render();
   }
 
   @HostListener('window:mousemove', ['$event'])
@@ -139,7 +140,7 @@ export class SceneComponent implements AfterViewInit, OnInit {
     this.raycaster.setFromCamera(this.mouse, this.camera);
     const intersects = this.raycaster.intersectObjects(this.scene.children);
     for (const object of intersects) {
-      console.log('object', object);
+
     }
   }
 }
