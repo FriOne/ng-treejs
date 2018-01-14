@@ -1,6 +1,7 @@
 import { Component, forwardRef, Inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { Group } from 'three';
+import { Group, MaterialCreator } from 'three';
 import OBJLoader from 'three-react-obj-loader';
+import MTLLoader from 'three-react-mtl-loader';
 
 import { SceneComponent } from '../scene/scene.component';
 
@@ -19,14 +20,21 @@ export class TowerComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(forwardRef(() => SceneComponent)) private scene: SceneComponent,
     private objectLoader: OBJLoader,
+    private mtlLoader: MTLLoader,
   ) {}
 
   ngOnInit() {
-    this.objectLoader.load(this.model, (model) => this.onModelLoad(model));
+    this.mtlLoader.load('cube.mtl', (materials => this.onMaterialsLoad(materials)));
   }
 
   ngOnDestroy() {
     this.scene.removeFromScene(this.tower);
+  }
+
+  onMaterialsLoad(creator: MaterialCreator) {
+    creator.preload();
+    this.objectLoader.setMaterials(creator);
+    this.objectLoader.load(this.model, (model) => this.onModelLoad(model));
   }
 
   onModelLoad(model: Group) {
